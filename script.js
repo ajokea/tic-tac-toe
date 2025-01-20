@@ -140,3 +140,23 @@ const game = (function () {
     return { playRound }
 
 })();
+
+const displayController = (function () {
+    const boardDiv = document.querySelector('.board');
+    const updateScreen = () => {
+        boardDiv.innerHTML = '';
+
+        let index = 1;
+        gameBoard.getBoard().forEach(row => {
+            row.forEach(col => {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.setAttribute('data-index', index++);
+                cell.innerText = col;
+                boardDiv.appendChild(cell);
+            })
+        });
+    }
+
+    updateScreen();
+})();
