@@ -1,4 +1,4 @@
-const Gameboard = function () {
+const gameBoard = (function () {
     const board = [['', '', ''], ['', '', ''], ['', '', '']];
     const getBoard = () => board;
 
@@ -101,7 +101,7 @@ const Gameboard = function () {
     }
     
     return { getBoard, printBoard, markBoard, checkWin, clearBoard };
-}
+})();
 
 const Player = function (name, symbol) {
     let wins = 0;
@@ -111,8 +111,7 @@ const Player = function (name, symbol) {
     return { name, symbol, getWins, winGame };
 }
 
-const Game = function () {
-    const board = Gameboard();
+const game = (function () {
     const player1 = Player("Player 1", 'X');
     const player2 = Player("Player 2", 'O');
 
@@ -123,15 +122,15 @@ const Game = function () {
     }
 
     const playRound = (position) => {
-        if (board.markBoard(activePlayer, position) == false) {
+        if (gameBoard.markBoard(activePlayer, position) == false) {
             console.log("Choose an unoccupied position!");
         } else {
-            board.printBoard();
-            if (board.checkWin(activePlayer)) {
+            gameBoard.printBoard();
+            if (gameBoard.checkWin(activePlayer)) {
                 console.log(`${activePlayer.name} wins!`)
                 activePlayer.winGame();
                 console.log(`Score: ${activePlayer.name}-${activePlayer.getWins()}, ${activePlayer == player1 ? player2.name : player1.name}-${activePlayer == player1 ? player2.getWins() : player1.getWins()}`)
-                board.clearBoard();
+                gameBoard.clearBoard();
             } else {
                 switchPlayerTurn();
             }
@@ -140,6 +139,4 @@ const Game = function () {
 
     return { playRound }
 
-}
-
-const game = Game();
+})();
