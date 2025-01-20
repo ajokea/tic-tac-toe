@@ -1,5 +1,6 @@
 const gameBoard = (function () {
     const board = [['', '', ''], ['', '', ''], ['', '', '']];
+    
     const getBoard = () => board;
 
     const printBoard = () => {
@@ -67,8 +68,8 @@ const gameBoard = (function () {
         }
     }
 
-    const winStates = () => {
-        return [
+    const winStates = () => 
+        [
             [board[0][0], board[0][1], board[0][2]],
             [board[1][0], board[1][1], board[1][2]],
             [board[2][0], board[2][1], board[2][2]],
@@ -77,8 +78,7 @@ const gameBoard = (function () {
             [board[0][2], board[1][2], board[2][2]],
             [board[0][0], board[1][1], board[2][2]],
             [board[0][2], board[1][1], board[2][0]]
-        ]
-    }
+        ];
 
     const checkWin = (player) => {
         for (let state of winStates()) {
@@ -137,7 +137,7 @@ const game = (function () {
         }
     }
 
-    return { playRound }
+    return { playRound, activePlayer }
 
 })();
 
@@ -146,12 +146,12 @@ const displayController = (function () {
     const updateScreen = () => {
         boardDiv.innerHTML = '';
 
-        let index = 1;
+        let position = 1;
         gameBoard.getBoard().forEach(row => {
             row.forEach(col => {
                 const cell = document.createElement('div');
                 cell.classList.add('cell');
-                cell.setAttribute('data-index', index++);
+                cell.setAttribute('data-position', position++);
                 cell.innerText = col;
                 boardDiv.appendChild(cell);
             })
@@ -159,4 +159,14 @@ const displayController = (function () {
     }
 
     updateScreen();
+
+    boardDiv.addEventListener('click', (event) => {
+        if (event.target.matches('.cell')) {
+            let cell = event.target;
+            let position = cell.dataset.position;
+            game.playRound(parseInt(position));
+            updateScreen();
+        }
+    })
+
 })();
