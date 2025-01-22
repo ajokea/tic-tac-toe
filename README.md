@@ -1,1 +1,5 @@
-# tic-tac-toe
+In this project, I used my knowledge of Javascript factory functions and modules to create a Tic-Tac-Toe game in the browser. I focused on minimising the global code and keeping the game logic seperate from the display/DOM logic.
+
+I created a displayController module to update the tic-tac-toe board and display different screens during the game. I also created a gameBoard module where the game board was stored as an array and updated with different functions. I created factory functions for the game and the players.
+
+The game takes name inputs for player 1 and player 2 and assigns them the 'X' and 'O' symbols respectively. Then, the players can click on the board to mark their spots. When the round is over, players have the option to continue playing, keeping track of score, or end the game and return to the start screen.
